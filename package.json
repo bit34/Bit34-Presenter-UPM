@@ -12,6 +12,6 @@
     },
     "dependencies":
     {
-        "com.bit34games.injector": "https://github.com/bit34/bit34-injector-upm.git#v2.0.0"
+        "com.bit34games.director": "https://github.com/bit34/bit34-director-upm.git#v1.1.0"
     }
 }

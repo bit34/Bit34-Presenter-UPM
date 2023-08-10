@@ -1,7 +1,7 @@
 {
     "name": "com.bit34games.presenter",
     "displayName": "Bit34 Presenter - UI abstarction library",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "This is an ui abstraction library that uses Director(MVP Library) for abstraction between program an Unity ui system.",
     "unity": "2018.4",
     "documentationUrl": "https://github.com/bit34/bit34-presenter/",

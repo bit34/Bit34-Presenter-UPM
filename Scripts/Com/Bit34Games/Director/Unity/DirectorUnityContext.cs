@@ -3,11 +3,11 @@ using UnityEngine;
 using Com.Bit34Games.Injector;
 using Com.Bit34Games.Director.Mediation;
 using Com.Bit34Games.Director.Signaling;
-using Com.Bit34Games.Director;
 
-namespace Com.Bit34Games.Unity.Director
+namespace Com.Bit34Games.Director.Unity
 {
-    public class DirectorContext : MonoBehaviour, IDirectorContext
+    public class DirectorUnityContext : MonoBehaviour, 
+										IDirectorContext
     {
 		//	MEMBERS
         public    bool 		          HasStarted          { get; private set; }

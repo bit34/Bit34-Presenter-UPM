@@ -2,11 +2,11 @@
 using UnityEngine;
 using Com.Bit34Games.Director.Error;
 using Com.Bit34Games.Director.Mediation;
-using Com.Bit34Games.Director;
 
-namespace Com.Bit34Games.Unity.Director
+namespace Com.Bit34Games.Director.Unity
 {
-	public class MonoBehaviourView : MonoBehaviour, IView
+	public class DirectorUnityView : MonoBehaviour, 
+									 IView
 	{
 		//	MEMBERS
 		private IDirectorContext _context;

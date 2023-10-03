@@ -7,7 +7,7 @@ namespace Com.Bit34Games.Presenter.Models
     {
         //  MEMBERS
         public int    ScreenCount   { get { return _screens.Count; } }
-        public string TopScreenName { get { return (_screens.Count>1)?(_screens.Peek().name):(""); } }
+        public string TopScreenName { get { return _screens.Peek().name; } }
         //      Private
         private Stack<ScreenVO> _screens;
 

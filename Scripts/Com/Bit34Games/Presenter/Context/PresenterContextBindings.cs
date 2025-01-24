@@ -5,6 +5,7 @@ using Com.Bit34Games.Presenter.Models;
 using Com.Bit34Games.Presenter.Signals;
 using Com.Bit34Games.Presenter.Utilities;
 
+
 namespace Com.Bit34Games.Presenter.Commands
 {
     public static class PresenterContextBindings
@@ -16,8 +17,8 @@ namespace Com.Bit34Games.Presenter.Commands
 
             injector.AddBinding<PresenterOperations>()                                  .ToType<PresenterOperations>();
 
-            signalCommandBinder.BindSignal<PresenterSignals.ShowScreenAtTop>()          .ToCommand<PresenterCommands.ShowScreenAtTop>();
-            signalCommandBinder.BindSignal<PresenterSignals.CloseTopScreen>()           .ToCommand<PresenterCommands.CloseTopScreen>();
+            signalCommandBinder.BindSignal<PresenterSignals.ShowScreenAtTop>()          .ToCommand<ShowScreenAtTopCommand>();
+            signalCommandBinder.BindSignal<PresenterSignals.CloseTopScreen>()           .ToCommand<CloseTopScreenCommand>();
         }
 
         public static void Initialize(IInjector injector, IPresenterSceneManager presenterSceneManager)

@@ -1,4 +1,6 @@
 using Com.Bit34Games.Presenter.Models;
+using Com.Bit34Games.Presenter.VOs;
+
 
 namespace Com.Bit34Games.Presenter.Utilities
 {
@@ -23,16 +25,27 @@ namespace Com.Bit34Games.Presenter.Utilities
 
         public void ShowScreenAtTop(string screenName)
         {
+            ScreenTransitionVO previousCloseTransition = null;
+            if (_presenterModel.ScreenCount>0)
+            {
+                previousCloseTransition = _sceneManager.CloseScreen(screenName);
+            }
             _presenterModel.AddScreen(screenName);
-            _sceneManager.CreateScreen(screenName);
+            _sceneManager.ShowScreen(previousCloseTransition, screenName);
         }
 
         public void CloseTopScreen()
         {
             _presenterModel.RemoveScreen();
+
             if (_presenterModel.ScreenCount>0)
             {
-                _sceneManager.CreateScreen(_presenterModel.TopScreenName);
+                ScreenTransitionVO previousCloseTransition = _sceneManager.CloseScreen(_presenterModel.TopScreenName);
+                _sceneManager.ShowScreen(previousCloseTransition, _presenterModel.TopScreenName);
+            }
+            else
+            {
+                _sceneManager.CloseScreen("");
             }
         }
 

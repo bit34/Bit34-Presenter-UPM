@@ -4,6 +4,5 @@ namespace Com.Bit34Games.Presenter.Unity
 {
     public class BasePresenterView : DirectorUnityView
     {
-
     }
 }

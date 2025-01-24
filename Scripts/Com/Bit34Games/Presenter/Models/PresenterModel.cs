@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Com.Bit34Games.Presenter.VOs;
 
+
 namespace Com.Bit34Games.Presenter.Models
 {
     public class PresenterModel : IReadOnlyPresenterModel

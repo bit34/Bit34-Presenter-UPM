@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Com.Bit34Games.Presenter.Utilities;
+using Com.Bit34Games.Presenter.VOs;
 using UnityEngine;
+
 
 namespace Com.Bit34Games.Presenter.Unity
 {
@@ -17,9 +19,10 @@ namespace Com.Bit34Games.Presenter.Unity
 #pragma warning restore 0649
         //      Private
         private Dictionary<string, GameObject> _screenPrefabs;
-        private GameObject                     _screen;
+        private BaseScreenView                 _screen;
         private Dictionary<string, GameObject> _overlayPrefabs;
         private List<GameObject>               _overlays;
+
 
         //  METHODS
         public void AddScreenPrefab(string name, GameObject prefab)
@@ -33,16 +36,20 @@ namespace Com.Bit34Games.Presenter.Unity
         }
 
 #region IPresenterSceneManager implementations
-    
-        public void CreateScreen(string screenName)
-        {
-            if (_screen != null)
-            {
-                Destroy(_screen);
-            }
 
-            _screen = Instantiate(_screenPrefabs[screenName], _screenContainer);
-            _screen.name = screenName;
+        public ScreenTransitionVO ShowScreen(ScreenTransitionVO previousCloseTransition, string newScreenName)
+        {
+            GameObject screenGO = Instantiate(_screenPrefabs[newScreenName], _screenContainer);
+            _screen = screenGO.GetComponent<BaseScreenView>();
+            _screen.name = newScreenName;
+            return _screen.ShowScreen(previousCloseTransition);
+        }
+
+        public ScreenTransitionVO CloseScreen(string nextScreenName)
+        {
+            ScreenTransitionVO previousCloseTransition = _screen.CloseScreen(nextScreenName);
+            _screen = null;
+            return previousCloseTransition;
         }
 
         public void CreateOverlay(string overlayName)

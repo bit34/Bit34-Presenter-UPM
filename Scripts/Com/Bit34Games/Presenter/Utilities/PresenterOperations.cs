@@ -14,6 +14,7 @@ namespace Com.Bit34Games.Presenter.Utilities
         //      Private
         private IPresenterSceneManager _sceneManager;
 
+
         //  METHODS
         public void Initialize(IPresenterSceneManager sceneManager)
         {
@@ -23,25 +24,25 @@ namespace Com.Bit34Games.Presenter.Utilities
             }
         }
 
-        public void ShowScreenAtTop(string screenName)
+        public void OpenScreen(string screenName)
         {
             ScreenTransitionVO previousCloseTransition = null;
-            if (_presenterModel.ScreenCount>0)
+            if (_presenterModel.ScreenCount > 0)
             {
-                previousCloseTransition = _sceneManager.CloseScreen(screenName);
+                previousCloseTransition = _sceneManager.CloseScreen(_presenterModel.TopScreenName);
             }
             _presenterModel.AddScreen(screenName);
-            _sceneManager.ShowScreen(previousCloseTransition, screenName);
+            _sceneManager.OpenScreen(previousCloseTransition, screenName);
         }
 
-        public void CloseTopScreen()
+        public void CloseScreen()
         {
             _presenterModel.RemoveScreen();
 
-            if (_presenterModel.ScreenCount>0)
+            if (_presenterModel.ScreenCount > 0)
             {
                 ScreenTransitionVO previousCloseTransition = _sceneManager.CloseScreen(_presenterModel.TopScreenName);
-                _sceneManager.ShowScreen(previousCloseTransition, _presenterModel.TopScreenName);
+                _sceneManager.OpenScreen(previousCloseTransition, _presenterModel.TopScreenName);
             }
             else
             {
@@ -53,6 +54,29 @@ namespace Com.Bit34Games.Presenter.Utilities
         {
             _sceneManager.CreateOverlay(overlayName);
         }
-        
+
+        public void OpenPopup(string popupName)
+        {
+            if (_presenterModel.PopupCount > 0)
+            {
+                _sceneManager.HidePopup();
+            }
+
+            _presenterModel.AddPopup(popupName);
+            _sceneManager.OpenPopup(popupName);
+        }
+
+        public void ClosePopup()
+        {
+            _presenterModel.RemovePopup();
+            _sceneManager.ClosePopup();
+
+            if (_presenterModel.PopupCount > 0)
+            {
+                _sceneManager.RevealPopup();
+            }
+
+        }
+
     }
 }

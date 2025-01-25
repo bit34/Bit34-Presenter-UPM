@@ -8,12 +8,11 @@ namespace Com.Bit34Games.Presenter.Unity
     public class PresenterUnityHelpers
     {
         //  METHODS
-        public static void SlideContainerFromRight(RectTransform container, float duration, float delay=0, TweenCallback onComplete=null)
+
+        public static void SlideContainer(RectTransform container, Vector2 startPosition, Vector2 endPosition, float duration, float delay=0, TweenCallback onComplete=null)
         {
-            Vector2 position       = container.anchoredPosition;
-            Vector2 slidedPosition = new Vector2(container.anchoredPosition.x + container.rect.width, container.anchoredPosition.y);
-            container.anchoredPosition = slidedPosition;
-            Tween tween = container.DOAnchorPos(position, duration);
+            container.anchoredPosition = startPosition;
+            Tween tween = container.DOAnchorPos(endPosition, duration);
             if (delay > 0)
             {
                 tween.SetDelay(delay);
@@ -22,50 +21,48 @@ namespace Com.Bit34Games.Presenter.Unity
             {
                 tween.OnComplete(onComplete);
             }
+        }
+
+        public static void SlideContainerFromRight(RectTransform container, float duration, float delay=0, TweenCallback onComplete=null)
+        {
+            Vector2 position       = container.anchoredPosition;
+            Vector2 slidedPosition = new Vector2(container.anchoredPosition.x + container.rect.width, container.anchoredPosition.y);
+            SlideContainer(container, slidedPosition, position, duration, delay, onComplete);
         }
 
         public static void SlideContainerFromLeft(RectTransform container, float duration, float delay=0, TweenCallback onComplete=null)
         {
             Vector2 position       = container.anchoredPosition;
             Vector2 slidedPosition = new Vector2(container.anchoredPosition.x - container.rect.width, container.anchoredPosition.y);
-            container.anchoredPosition = slidedPosition;
-            Tween tween = container.DOAnchorPos(position, duration);
-            if (delay > 0)
-            {
-                tween.SetDelay(delay);
-            }
-            if (onComplete != null)
-            {
-                tween.OnComplete(onComplete);
-            }
+            SlideContainer(container, slidedPosition, position, duration, delay, onComplete);
+        }
+
+        public static void SlideContainerFromBottom(RectTransform container, float duration, float delay=0, TweenCallback onComplete=null)
+        {
+            Vector2 position       = container.anchoredPosition;
+            Vector2 slidedPosition = new Vector2(container.anchoredPosition.x, container.anchoredPosition.y - container.rect.height);
+            SlideContainer(container, slidedPosition, position, duration, delay, onComplete);
         }
 
         public static void SlideContainerToRight(RectTransform container, float duration, float delay=0, TweenCallback onComplete=null)
         {
+            Vector2 position       = container.anchoredPosition;
             Vector2 slidedPosition = new Vector2(container.anchoredPosition.x + container.rect.width, container.anchoredPosition.y);
-            Tween   tween          = container.DOAnchorPos(slidedPosition, duration);
-            if (delay > 0)
-            {
-                tween.SetDelay(delay);
-            }
-            if (onComplete != null)
-            {
-                tween.OnComplete(onComplete);
-            }
+            SlideContainer(container, position, slidedPosition, duration, delay, onComplete);
         }
 
         public static void SlideContainerToLeft(RectTransform container, float duration, float delay=0, TweenCallback onComplete=null)
         {
+            Vector2 position       = container.anchoredPosition;
             Vector2 slidedPosition = new Vector2(container.anchoredPosition.x - container.rect.width, container.anchoredPosition.y);
-            Tween   tween          = container.DOAnchorPos(slidedPosition, duration);
-            if (delay > 0)
-            {
-                tween.SetDelay(delay);
-            }
-            if (onComplete != null)
-            {
-                tween.OnComplete(onComplete);
-            }
+            SlideContainer(container, position, slidedPosition, duration, delay, onComplete);
+        }
+
+        public static void SlideContainerToBottom(RectTransform container, float duration, float delay=0, TweenCallback onComplete=null)
+        {
+            Vector2 position       = container.anchoredPosition;
+            Vector2 slidedPosition = new Vector2(container.anchoredPosition.x, container.anchoredPosition.y - container.rect.height);
+            SlideContainer(container, position, slidedPosition, duration, delay, onComplete);
         }
 
         public static void FadeAllGraphicsInstantly(RectTransform container, float alpha)
@@ -100,9 +97,9 @@ namespace Com.Bit34Games.Presenter.Unity
             }
         }
 
-        public static void KillAllGraphicsTweens(GameObject gameObject)
+        public static void KillAllGraphicsTweens(RectTransform container)
         {
-            Graphic[] graphics = gameObject.GetComponentsInChildren<Graphic>();
+            Graphic[] graphics = container.gameObject.GetComponentsInChildren<Graphic>();
             for (int i = 0; i < graphics.Length; i++)
             {
                 graphics[i].DOKill();

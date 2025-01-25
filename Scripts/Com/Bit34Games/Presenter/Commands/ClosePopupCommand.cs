@@ -4,7 +4,7 @@ using Com.Bit34Games.Presenter.Utilities;
 
 namespace Com.Bit34Games.Presenter.Commands
 {
-    public class ShowScreenAtTopCommand : PresenterSignals.ShowScreenAtTop.Command
+    public class ClosePopupCommand : PresenterPopupSignals.Close.Command
     {
         //  MEMBERS
         //      Utilities
@@ -12,9 +12,9 @@ namespace Com.Bit34Games.Presenter.Commands
 
 
         //  METHODS
-        protected override void ExecuteMethod(string screenName)
+        protected override void ExecuteMethod()
         {
-            _presenterOperations.ShowScreenAtTop(screenName);
+            _presenterOperations.ClosePopup();
         }
     }
 }

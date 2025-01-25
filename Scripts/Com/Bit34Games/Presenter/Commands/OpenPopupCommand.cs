@@ -1,10 +1,10 @@
-﻿using Com.Bit34Games.Presenter.Signals;
+using Com.Bit34Games.Presenter.Signals;
 using Com.Bit34Games.Presenter.Utilities;
 
 
 namespace Com.Bit34Games.Presenter.Commands
 {
-    public class CloseTopScreenCommand : PresenterSignals.CloseTopScreen.Command
+    public class OpenPopupCommand : PresenterPopupSignals.Open.Command
     {
         //  MEMBERS
         //      Utilities
@@ -12,9 +12,9 @@ namespace Com.Bit34Games.Presenter.Commands
 
 
         //  METHODS
-        protected override void ExecuteMethod()
+        protected override void ExecuteMethod(string popupName)
         {
-            _presenterOperations.CloseTopScreen();
+            _presenterOperations.OpenPopup(popupName);
         }
     }
 }

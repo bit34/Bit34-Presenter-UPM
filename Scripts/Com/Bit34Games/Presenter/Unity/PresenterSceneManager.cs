@@ -16,12 +16,15 @@ namespace Com.Bit34Games.Presenter.Unity
         [SerializeField] private RectTransform _container;
         [SerializeField] private RectTransform _screenContainer;
         [SerializeField] private RectTransform _overlayContainer;
+        [SerializeField] private RectTransform _popupContainer;
 #pragma warning restore 0649
         //      Private
         private Dictionary<string, GameObject> _screenPrefabs;
-        private BaseScreenView                 _screen;
+        private ScreenView                     _screen;
         private Dictionary<string, GameObject> _overlayPrefabs;
-        private List<GameObject>               _overlays;
+        private List<OverlayView>               _overlays;
+        private Dictionary<string, GameObject> _popupPrefabs;
+        private Stack<PopupView>               _popups;
 
 
         //  METHODS
@@ -34,13 +37,18 @@ namespace Com.Bit34Games.Presenter.Unity
         {
             _overlayPrefabs.Add(name, prefab);
         }
+        
+        public void AddPopupPrefab(string name, GameObject prefab)
+        {
+            _popupPrefabs.Add(name, prefab);
+        }
 
 #region IPresenterSceneManager implementations
 
-        public ScreenTransitionVO ShowScreen(ScreenTransitionVO previousCloseTransition, string newScreenName)
+        public ScreenTransitionVO OpenScreen(ScreenTransitionVO previousCloseTransition, string newScreenName)
         {
             GameObject screenGO = Instantiate(_screenPrefabs[newScreenName], _screenContainer);
-            _screen = screenGO.GetComponent<BaseScreenView>();
+            _screen = screenGO.GetComponent<ScreenView>();
             _screen.name = newScreenName;
             return _screen.ShowScreen(previousCloseTransition);
         }
@@ -54,9 +62,34 @@ namespace Com.Bit34Games.Presenter.Unity
 
         public void CreateOverlay(string overlayName)
         {
-            GameObject overlayObject = Instantiate(_overlayPrefabs[overlayName], _overlayContainer);
-            overlayObject.name = overlayName;
-            _overlays.Add(overlayObject);
+            GameObject  overlayGO = Instantiate(_overlayPrefabs[overlayName], _overlayContainer);
+            OverlayView overlay   = overlayGO.GetComponent<OverlayView>();
+            overlayGO.name = overlayName;
+            _overlays.Add(overlay);
+        }
+
+        public void OpenPopup(string popupName)
+        {
+            GameObject popupGO = Instantiate(_popupPrefabs[popupName], _popupContainer);
+            PopupView  popup   = popupGO.GetComponent<PopupView>();
+            _popups.Push(popup);
+            popup.Open();
+        }
+
+        public void ClosePopup()
+        {
+            PopupView popup = _popups.Pop();
+            popup.Close();
+        }
+
+        public void HidePopup()
+        {
+            _popups.Peek().Hide();
+        }
+
+        public void RevealPopup()
+        {
+            _popups.Peek().Reveal();
         }
 
 #endregion
@@ -65,7 +98,9 @@ namespace Com.Bit34Games.Presenter.Unity
         {
             _screenPrefabs  = new Dictionary<string, GameObject>();
             _overlayPrefabs = new Dictionary<string, GameObject>();
-            _overlays       = new List<GameObject>();
+            _overlays       = new List<OverlayView>();
+            _popupPrefabs   = new Dictionary<string, GameObject>();
+            _popups         = new Stack<PopupView>();
         }
     }
 }

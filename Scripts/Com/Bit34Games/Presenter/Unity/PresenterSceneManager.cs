@@ -16,6 +16,7 @@ namespace Com.Bit34Games.Presenter.Unity
         [SerializeField] private RectTransform _container;
         [SerializeField] private RectTransform _screenContainer;
         [SerializeField] private RectTransform _overlayContainer;
+        [SerializeField] private PopupBlocker  _popupBlocker;
         [SerializeField] private RectTransform _popupContainer;
 #pragma warning restore 0649
         //      Private
@@ -66,6 +67,16 @@ namespace Com.Bit34Games.Presenter.Unity
             OverlayView overlay   = overlayGO.GetComponent<OverlayView>();
             overlayGO.name = overlayName;
             _overlays.Add(overlay);
+        }
+
+        public void ShowPopupBlocker()
+        {
+            _popupBlocker.Show();
+        }
+
+        public void HidePopupBlocker()
+        {
+            _popupBlocker.Hide();
         }
 
         public void OpenPopup(string popupName)

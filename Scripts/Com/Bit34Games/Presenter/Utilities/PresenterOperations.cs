@@ -29,7 +29,7 @@ namespace Com.Bit34Games.Presenter.Utilities
             ScreenTransitionVO previousCloseTransition = null;
             if (_presenterModel.ScreenCount > 0)
             {
-                previousCloseTransition = _sceneManager.CloseScreen(_presenterModel.TopScreenName);
+                previousCloseTransition = _sceneManager.CloseScreen(screenName);
             }
             _presenterModel.AddScreen(screenName);
             _sceneManager.OpenScreen(previousCloseTransition, screenName);
@@ -57,7 +57,11 @@ namespace Com.Bit34Games.Presenter.Utilities
 
         public void OpenPopup(string popupName)
         {
-            if (_presenterModel.PopupCount > 0)
+            if (_presenterModel.PopupCount == 0)
+            {
+                _sceneManager.ShowPopupBlocker();
+            }
+            else
             {
                 _sceneManager.HidePopup();
             }
@@ -71,7 +75,11 @@ namespace Com.Bit34Games.Presenter.Utilities
             _presenterModel.RemovePopup();
             _sceneManager.ClosePopup();
 
-            if (_presenterModel.PopupCount > 0)
+            if (_presenterModel.PopupCount == 0)
+            {
+                _sceneManager.HidePopupBlocker();
+            }
+            else
             {
                 _sceneManager.RevealPopup();
             }

@@ -94,14 +94,14 @@ namespace Com.Bit34Games.Presenter.Unity
             {
                 if (from)
                 {
-                    sequence.Insert(0, graphics[i].DOFade(alpha, duration)
-                                                  .SetEase(Ease.OutCubic)
-                                                  .From());
+                    sequence.Insert(delay, graphics[i].DOFade(alpha, duration)
+                                                      .SetEase(Ease.OutCubic)
+                                                      .From());
                 }
                 else
                 {
-                    sequence.Insert(0, graphics[i].DOFade(alpha, duration)
-                                                .SetEase(Ease.OutCubic));
+                    sequence.Insert(delay, graphics[i].DOFade(alpha, duration)
+                                                      .SetEase(Ease.OutCubic));
                 }
             }
         }

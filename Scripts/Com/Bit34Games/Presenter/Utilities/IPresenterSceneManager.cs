@@ -16,6 +16,6 @@ namespace Com.Bit34Games.Presenter.Utilities
         void OpenPopup(string popupName);
         void ClosePopup();
         void HidePopup();
-        void RevealPopup();
+        void RevealPopup(string popupName);
     }
 }

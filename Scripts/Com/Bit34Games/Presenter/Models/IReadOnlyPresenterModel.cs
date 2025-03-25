@@ -6,5 +6,6 @@ namespace Com.Bit34Games.Presenter.Models
         int    ScreenCount   { get; }
         string TopScreenName { get; }
         int    PopupCount    { get; }
+        string TopPopupName  { get; }
     }
 }

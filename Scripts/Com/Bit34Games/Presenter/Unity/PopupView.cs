@@ -10,18 +10,17 @@ namespace Com.Bit34Games.Presenter.Unity
 
         virtual public void Close()
         {
-            gameObject.SetActive(false);
             Destroy(gameObject);
-        }
-
-        virtual public void Hide()
-        {
-            gameObject.SetActive(false);
         }
 
         virtual public void Reveal()
         {
             gameObject.SetActive(true);
+        }
+
+        virtual public void Hide()
+        {
+            Destroy(gameObject);
         }
     }
 }

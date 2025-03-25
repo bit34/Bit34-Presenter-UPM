@@ -25,7 +25,7 @@ namespace Com.Bit34Games.Presenter.Unity
         private Dictionary<string, GameObject> _overlayPrefabs;
         private List<OverlayView>               _overlays;
         private Dictionary<string, GameObject> _popupPrefabs;
-        private Stack<PopupView>               _popups;
+        private PopupView                      _popup;
 
 
         //  METHODS
@@ -82,25 +82,27 @@ namespace Com.Bit34Games.Presenter.Unity
         public void OpenPopup(string popupName)
         {
             GameObject popupGO = Instantiate(_popupPrefabs[popupName], _popupContainer);
-            PopupView  popup   = popupGO.GetComponent<PopupView>();
-            _popups.Push(popup);
-            popup.Open();
+            _popup   = popupGO.GetComponent<PopupView>();
+            _popup.Open();
         }
 
         public void ClosePopup()
         {
-            PopupView popup = _popups.Pop();
-            popup.Close();
+            _popup.Close();
+            _popup = null;
         }
 
         public void HidePopup()
         {
-            _popups.Peek().Hide();
+            _popup.Hide();
+            _popup = null;
         }
 
-        public void RevealPopup()
+        public void RevealPopup(string popupName)
         {
-            _popups.Peek().Reveal();
+            GameObject popupGO = Instantiate(_popupPrefabs[popupName], _popupContainer);
+            _popup   = popupGO.GetComponent<PopupView>();
+            _popup.Reveal();
         }
 
 #endregion
@@ -111,7 +113,6 @@ namespace Com.Bit34Games.Presenter.Unity
             _overlayPrefabs = new Dictionary<string, GameObject>();
             _overlays       = new List<OverlayView>();
             _popupPrefabs   = new Dictionary<string, GameObject>();
-            _popups         = new Stack<PopupView>();
         }
     }
 }

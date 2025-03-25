@@ -23,7 +23,7 @@ namespace Com.Bit34Games.Presenter.Unity
         virtual public ScreenTransitionVO ShowScreen(ScreenTransitionVO previousCloseTransition)
         {
             float duration = 0;
-            if (previousCloseTransition.duration > 0)
+            if (previousCloseTransition != null && previousCloseTransition.duration > 0)
             {
                 _isInTransition = true;
                 duration        = previousCloseTransition.duration;

@@ -81,7 +81,7 @@ namespace Com.Bit34Games.Presenter.Utilities
             }
             else
             {
-                _sceneManager.RevealPopup();
+                _sceneManager.RevealPopup(_presenterModel.TopPopupName);
             }
 
         }

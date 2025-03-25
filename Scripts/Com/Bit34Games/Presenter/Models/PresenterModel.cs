@@ -10,6 +10,7 @@ namespace Com.Bit34Games.Presenter.Models
         public int    ScreenCount   { get { return _screens.Count; } }
         public string TopScreenName { get { return _screens.Peek().name; } }
         public int    PopupCount    { get { return _popups.Count; } }
+        public string TopPopupName  { get { return _popups.Peek().name; } }
         //      Private
         private Stack<ScreenVO> _screens;
         private Stack<PopupVO>  _popups;

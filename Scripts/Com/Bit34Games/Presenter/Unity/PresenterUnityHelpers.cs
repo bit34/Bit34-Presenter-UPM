@@ -77,7 +77,7 @@ namespace Com.Bit34Games.Presenter.Unity
             }
         }
 
-        public static void FadeAllGraphicsWithTween(RectTransform container, float alpha, float duration, float delay=0, TweenCallback onComplete=null)
+        public static void FadeAllGraphicsWithTween(RectTransform container, float alpha, float duration, float delay=0, bool from=false, TweenCallback onComplete=null)
         {
             Sequence sequence = DOTween.Sequence();
             if (delay > 0)
@@ -92,8 +92,17 @@ namespace Com.Bit34Games.Presenter.Unity
             Graphic[] graphics = container.gameObject.GetComponentsInChildren<Graphic>();
             for (int i = 0; i < graphics.Length; i++)
             {
-                sequence.Insert(0, graphics[i].DOFade(alpha, duration)
-                                              .SetEase(Ease.OutCubic));
+                if (from)
+                {
+                    sequence.Insert(0, graphics[i].DOFade(alpha, duration)
+                                                  .SetEase(Ease.OutCubic)
+                                                  .From());
+                }
+                else
+                {
+                    sequence.Insert(0, graphics[i].DOFade(alpha, duration)
+                                                .SetEase(Ease.OutCubic));
+                }
             }
         }
 
